@@ -1,0 +1,152 @@
+Const col_dataemissao = 1
+Const col_cteserie = 2
+Const col_valorbruto = 3
+Const col_pedido = 4
+Const col_item = 5
+Const col_iva = 6
+Const col_valorliquido = 7
+Const col_codigotranspor = 8
+Const col_cfopentrada = 9
+Const col_tpemissão = 10
+Const col_naleatorio = 11
+Const col_digito = 12
+Const col_aliquotaicms = 13
+Const col_codigofrete = 14
+
+ 
+
+ 
+
+Sub lançardp()
+
+ 
+
+'Dados
+Dim dataemissao As String
+Dim cteserie As String
+Dim valorbruto As String
+Dim pedido As String
+Dim item  As String
+Dim iva As String
+Dim valorliquido As String
+Dim codigotranspor As String
+Dim cfopentrada As String
+Dim codigofrete As String
+Dim naleatorio As String
+Dim digito As String
+Dim aliquotaicms As String
+Dim tpemissão As String
+
+ 
+
+ 
+
+'localização tabela
+i = Range("A2").End(xlDown).Row
+
+ 
+
+ 
+
+'Conexão sap
+If Not IsObject(ApplicationX) Then
+   Set SapGuiAuto = GetObject("SAPGUI")
+   Set ApplicationX = SapGuiAuto.GetScriptingEngine
+End If
+If Not IsObject(Connection) Then
+   Set Connection = ApplicationX.Children(0)
+End If
+If Not IsObject(session) Then
+   Set session = Connection.Children(0)
+End If
+
+ 
+
+ 
+
+'Ação
+
+ 
+
+For linha = 2 To i
+dataemissao = Cells(linha, col_dataemissao)
+cteserie = Cells(linha, col_cteserie)
+pedido = Cells(linha, col_pedido)
+item = Cells(linha, col_item)
+cteserie = Cells(linha, col_cteserie)
+valorbruto = Cells(linha, col_valorbruto)
+iva = Cells(linha, col_iva)
+valorliquido = Cells(linha, col_valorliquido)
+codigotranspor = Cells(linha, col_codigotranspor)
+cfopentrada = Cells(linha, col_cfopentrada)
+tpemissão = Cells(linha, col_tpemissão)
+naleatorio = Cells(linha, col_naleatorio)
+digito = Cells(linha, col_digito)
+aliquotaicms = Cells(linha, col_aliquotaicms)
+codigofrete = Cells(linha, col_codigofrete)
+
+
+session.findById("wnd[0]").maximize
+session.findById("wnd[0]/tbar[0]/okcd").Text = "miro"
+session.findById("wnd[0]").sendVKey 0
+'session.findById("wnd[1]/usr/ctxtBKPF-BUKRS").Text = "brhy"
+'session.findById("wnd[1]/usr/ctxtBKPF-BUKRS").caretPosition = 4
+'session.findById("wnd[1]").sendVKey 0
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BLDAT").Text = dataemissao
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/txtINVFO-XBLNR").Text = cteserie
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/txtINVFO-WRBTR").Text = valorbruto
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]").sendVKey 0
+
+ 
+
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO").Select
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subREFERENZBELEG:SAPLMR1M:6211/ctxtRM08M-EBELN").Text = pedido
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subREFERENZBELEG:SAPLMR1M:6211/ctxtRM08M-EBELP").Text = item
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subITEM:SAPLMR1M:6310/tblSAPLMR1MTC_MR1M").getAbsoluteRow(0).Selected = True
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subITEM:SAPLMR1M:6310/btnREFRESH").press
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subITEM:SAPLMR1M:6310/tblSAPLMR1MTC_MR1M/cmbDRSEG-MWSKZ[10,0]").Key = iva
+
+ 
+
+ 
+
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subITEM:SAPLMR1M:6310/btnSELECT_ALL").press
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_FI").Select
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_FI/ssubHEADER_SCREEN:SAPLFDCB:0150/txtINVFO-BEZNK").Text = valorliquido
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_FI/ssubHEADER_SCREEN:SAPLFDCB:0150/ctxtINVFO-LIFRE").Text = codigotranspor
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[1]").sendVKey 0
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_FI/ssubHEADER_SCREEN:SAPLFDCB:0150/ctxtINVFO-J_1BNFTYPE").Text = "YU"
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/tbar[1]/btn[21]").press
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB1/ssubHEADER_TAB:SAPLJ1BB2:2100/tblSAPLJ1BB2ITEM_CONTROL/ctxtJ_1BDYLIN-CFOP[1,0]").Text = cfopentrada
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB1/ssubHEADER_TAB:SAPLJ1BB2:2100/tblSAPLJ1BB2ITEM_CONTROL").Columns.elementAt(4).Width = 8
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB1/ssubHEADER_TAB:SAPLJ1BB2:2100/tblSAPLJ1BB2ITEM_CONTROL/chkJ_1BDYLIN-TMISS[4,0]").SetFocus
+session.findById("wnd[0]").sendVKey 2
+session.findById("wnd[0]/usr/tabsITEM_TAB/tabpITEM/ssubITEM_TABS:SAPLJ1BB2:3100/subSUB1:SAPLJ1BB2:3110/ctxtJ_1BDYLIN-IND_NAT_FRT").Text = codigofrete
+session.findById("wnd[0]/tbar[1]/btn[26]").press
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB8").Select
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB8/ssubHEADER_TAB:SAPLJ1BB2:2800/subRANDOM_NUMBER:SAPLJ1BB2:2801/ctxtJ_1BNFE_DOCNUM9_DIVIDED-TPEMIS").Text = tpemissão
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB8/ssubHEADER_TAB:SAPLJ1BB2:2800/subRANDOM_NUMBER:SAPLJ1BB2:2801/txtJ_1BNFE_DOCNUM9_DIVIDED-DOCNUM8").Text = naleatorio
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB8/ssubHEADER_TAB:SAPLJ1BB2:2800/subRANDOM_NUMBER:SAPLJ1BB2:2801/txtJ_1BNFE_ACTIVE-CDV").Text = digito
+session.findById("wnd[0]/tbar[0]/btn[3]").press
+session.findById("wnd[0]/tbar[0]/btn[11]").press
+session.findById("wnd[0]/tbar[0]/btn[3]").press
+
+ 
+
+Cells(linha, "o").Value = "Feito"
+
+ 
+
+Next
+
+ 
+
+End Sub
