@@ -1,0 +1,76 @@
+Const col_doc = 1
+Const col_cfop = 2
+
+ 
+
+Sub alterarCFOP()
+
+ 
+
+'Dados
+Dim doc As String
+Dim cfop As String
+
+ 
+
+ 
+
+'Localização tabela
+i = Range("A2").End(xlDown).Row
+
+ 
+
+ 
+
+'Conexão sap
+If Not IsObject(ApplicationX) Then
+   Set SapGuiAuto = GetObject("SAPGUI")
+   Set ApplicationX = SapGuiAuto.GetScriptingEngine
+End If
+If Not IsObject(Connection) Then
+   Set Connection = ApplicationX.Children(0)
+End If
+If Not IsObject(session) Then
+   Set session = Connection.Children(0)
+End If
+
+ 
+
+'Ação
+For linha = 2 To i
+doc = Cells(linha, col_doc)
+cfop = Cells(linha, col_cfop)
+
+ 
+
+ 
+
+'Abrir transação
+session.findById("wnd[0]").maximize
+session.findById("wnd[0]/tbar[0]/okcd").Text = "/nJ1B2N"
+session.findById("wnd[0]").sendVKey 0
+
+ 
+
+'Colocar numero do documento
+session.findById("wnd[0]/usr/ctxtJ_1BDYDOC-DOCNUM").Text = doc
+session.findById("wnd[0]").sendVKey 0
+
+ 
+
+ 
+
+'Colocar numero do cfop
+session.findById("wnd[0]/usr/tabsTABSTRIP1/tabpTAB1/ssubHEADER_TAB:SAPLJ1BB2:2100/tblSAPLJ1BB2ITEM_CONTROL/ctxtJ_1BDYLIN-CFOP[1,0]").Text = cfop
+session.findById("wnd[0]").sendVKey 11
+session.findById("wnd[0]").sendVKey 12
+
+Next
+
+ 
+
+ 
+
+End Sub
+
+ 
