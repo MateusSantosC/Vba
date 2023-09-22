@@ -28,7 +28,7 @@ Dim miro As String
 
  
 
-'localização tabela
+'Localização tabela
 i = Range("A2").End(xlDown).Row
 
  
@@ -82,20 +82,20 @@ session.findById("wnd[0]").sendVKey 0
 
  
 
-'cteserie
+'Cteserie
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/txtINVFO-XBLNR").Text = cteserie
 session.findById("wnd[0]").sendVKey 0
 
  
 
-'datalançamento
+'Datalançamento
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BUDAT").Text = datalançamento
 
  
 
  
 
-'valorbruto
+'Valorbruto
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/txtINVFO-WRBTR").Text = valorbruto
 session.findById("wnd[0]").sendVKey 0
 session.findById("wnd[0]").sendVKey 0
@@ -109,12 +109,12 @@ session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M
 
  
 
-'pedido
+'Pedido
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subREFERENZBELEG:SAPLMR1M:6211/ctxtRM08M-EBELN").Text = pedido
 
  
 
-'item
+'Item
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subREFERENZBELEG:SAPLMR1M:6211/ctxtRM08M-EBELP").Text = item
 session.findById("wnd[0]").sendVKey 0
 
