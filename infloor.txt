@@ -5,15 +5,11 @@ Const col_valorbruto = 4
 Const col_pedido = 5
 Const col_item = 6
 
- 
 
- 
-
- 
 
 Sub infloor()
 
- 
+
 
 'Dados
 Dim dataemissao As String
@@ -24,16 +20,12 @@ Dim pedido As String
 Dim item  As String
 Dim miro As String
 
- 
 
- 
 
 'Localização tabela
 i = Range("A2").End(xlDown).Row
 
- 
 
- 
 
 'Conexão sap
 If Not IsObject(ApplicationX) Then
@@ -49,12 +41,7 @@ End If
 
  
 
- 
-
 'Ação
-
- 
-
 For linha = 2 To i
 dataemissao = Cells(linha, col_dataemissao)
 cteserie = Cells(linha, col_cteserie)
@@ -70,94 +57,64 @@ session.findById("wnd[0]").maximize
 session.findById("wnd[0]/tbar[0]/okcd").Text = "miro"
 session.findById("wnd[0]").sendVKey 0
 
- 
-
- 
 
 'Data emissão
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BLDAT").Text = dataemissao
 session.findById("wnd[0]").sendVKey 0
 
  
-
- 
-
 'Cteserie
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/txtINVFO-XBLNR").Text = cteserie
 session.findById("wnd[0]").sendVKey 0
 
  
-
 'Datalançamento
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BUDAT").Text = datalançamento
 
  
-
- 
-
 'Valorbruto
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/txtINVFO-WRBTR").Text = valorbruto
 session.findById("wnd[0]").sendVKey 0
 session.findById("wnd[0]").sendVKey 0
 
  
-
- 
-
 'Selecionar tabela
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO").Select
 
  
-
 'Pedido
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subREFERENZBELEG:SAPLMR1M:6211/ctxtRM08M-EBELN").Text = pedido
 
  
-
 'Item
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subREFERENZBELEG:SAPLMR1M:6211/ctxtRM08M-EBELP").Text = item
 session.findById("wnd[0]").sendVKey 0
 
  
-
- 
-
 'Proxima aba
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6011/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subITEM:SAPLMR1M:6310/btnSELECT_ALL").press
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_FI").Select
 
  
-
- 
-
 'Y0
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_FI/ssubHEADER_SCREEN:SAPLFDCB:0150/ctxtINVFO-J_1BNFTYPE").Text = "Y0"
 session.findById("wnd[0]").sendVKey 0
 
  
-
 'Salvar
 session.findById("wnd[0]/tbar[0]/btn[11]").press
 
  
-
 'Pegar miro
 miro = session.findById("wnd[0]/sbar").Text
 Cells(linha, "g").Value = miro
 
  
-
- 
-
 'Sair
 session.findById("wnd[0]").sendVKey 12
 
  
-
- 
-
 Next
 
- 
 
 End Sub
